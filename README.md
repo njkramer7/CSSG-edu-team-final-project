@@ -2,7 +2,7 @@
 
 # Triangle Literacy Hub
 
-## 📖 Project Overview
+## Project Overview
 The **Triangle Literacy Hub** is a localized React web application built for the Raleigh, Durham, and Chapel Hill community. It centralizes vital literary resources, including public libraries, educational non-profits, and online reading programs, into one accessible digital space.
 
 ## The Cause and Non-Profit Focus
