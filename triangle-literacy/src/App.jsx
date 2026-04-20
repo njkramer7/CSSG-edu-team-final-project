@@ -1,121 +1,143 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import React, { useState, useEffect } from 'react';
+import './App.css';
+
+// The ResourceCard component remains the same
+const ResourceCard = ({ title, subtitle, description, linkUrl }) => (
+  <div className="resource-card">
+    <h3>{title}</h3>
+    {subtitle && <strong>📍 {subtitle}</strong>}
+    <p>{description}</p>
+    <a href={linkUrl} target="_blank" rel="noopener noreferrer">Learn More &rarr;</a>
+  </div>
+);
 
 function App() {
-  const [count, setCount] = useState(0)
+  // 1. Set up state to hold our fetched database data
+  const [dbData, setDbData] = useState(null);
+  
+  // 2. Set up a loading state so the user knows data is being fetched
+  const [isLoading, setIsLoading] = useState(true);
+  
+  // 3. Set up an error state just in case the fetch fails
+  const [error, setError] = useState(null);
 
+  // 4. Use useEffect to fetch the data exactly once when the component loads
+  useEffect(() => {
+    // Simulate network delay to see the loading state (optional, but good for testing)
+    setTimeout(() => {
+      fetch('/data.json')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("Could not connect to the database.");
+          }
+          return response.json();
+        })
+        .then(data => {
+          setDbData(data);
+          setIsLoading(false);
+        })
+        .catch(err => {
+          setError(err.message);
+          setIsLoading(false);
+        });
+    }, 1000); // 1-second simulated delay
+  }, []); // Empty array means this runs once on mount
+
+  // --- Conditional Rendering for API States ---
+
+  if (isLoading) {
+    return (
+      <div className="app-container" style={{ textAlign: 'center', marginTop: '50px' }}>
+        <h2>Loading literacy resources from the database... 📚</h2>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="app-container" style={{ textAlign: 'center', color: 'red', marginTop: '50px' }}>
+        <h2>Error: {error}</h2>
+      </div>
+    );
+  }
+
+  // --- Main Application (Rendered once data is loaded) ---
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
+    <div className="app-container">
+      <header className="site-header">
+        <h1>Triangle Literacy Hub</h1>
+        <p>Connecting Raleigh, Durham, and Chapel Hill to the power of reading.</p>
+      </header>
+
+      <main>
+        {/* US Illiteracy Data Section */}
+        <section className="section-container">
+          <h2 className="section-title">The Literacy Landscape</h2>
           <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
+            Literacy is the foundation of community health, economic mobility, and personal empowerment. 
           </p>
-        </div>
-        <button
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+          <div className="data-stats">
+            <div className="stat-box">
+              <span className="stat-number">21%</span>
+              <span>of US adults have very low literacy skills.</span>
+            </div>
+            <div className="stat-box">
+              <span className="stat-number">54%</span>
+              <span>of US adults read below a sixth-grade level.</span>
+            </div>
+          </div>
+        </section>
 
-      <div className="ticks"></div>
+        {/* Local Libraries Section (Now mapping from fetched dbData!) */}
+        <section className="section-container">
+          <h2 className="section-title">Local Public Libraries</h2>
+          <div className="card-grid">
+            {dbData.localLibraries.map((lib, index) => (
+              <ResourceCard 
+                key={index}
+                title={lib.name}
+                subtitle={lib.area}
+                description={lib.desc}
+                linkUrl={lib.link}
+              />
+            ))}
+          </div>
+        </section>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+        {/* Local Educational Programs */}
+        <section className="section-container">
+          <h2 className="section-title">Triangle Literacy Programs</h2>
+          <div className="card-grid">
+            {dbData.localPrograms.map((prog, index) => (
+              <ResourceCard 
+                key={index}
+                title={prog.name}
+                subtitle={prog.area}
+                description={prog.desc}
+                linkUrl={prog.link}
+              />
+            ))}
+          </div>
+        </section>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+        {/* Online Resources Section */}
+        <section className="section-container">
+          <h2 className="section-title">Free Online Tools</h2>
+          <div className="card-grid">
+            {dbData.onlineResources.map((resource, index) => (
+              <ResourceCard 
+                key={index}
+                title={resource.name}
+                description={resource.desc}
+                linkUrl={resource.link}
+              />
+            ))}
+          </div>
+        </section>
+      </main>
+    </div>
+  );
 }
 
-export default App
+export default App;
+ 
