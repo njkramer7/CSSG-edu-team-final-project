@@ -1,0 +1,54 @@
+{
+  "localLibraries": [
+    {
+      "name": "Wake County Public Libraries",
+      "area": "Raleigh / Wake County",
+      "desc": "Offers extensive collections, adult literacy tutoring, and children's storytimes across multiple branches.",
+      "link": "https://www.wake.gov/departments-government/libraries"
+    },
+    {
+      "name": "Durham County Library",
+      "area": "Durham",
+      "desc": "Provides the Adult Literacy program, ESL classes, and the MakerLab to encourage community reading and creation.",
+      "link": "https://durhamcountylibrary.org/"
+    },
+    {
+      "name": "Chapel Hill Public Library",
+      "area": "Chapel Hill",
+      "desc": "A central hub for community learning, offering book clubs, digital archives, and early childhood literacy kits.",
+      "link": "https://chapelhillpubliclibrary.org/"
+    }
+  ],
+  "localPrograms": [
+    {
+      "name": "Triangle Literacy Council",
+      "area": "Triangle-wide",
+      "desc": "Improves lives through basic literacy and life skills tutoring for adults and youth.",
+      "link": "https://triangleliteracy.org/"
+    },
+    {
+      "name": "Book Harvest",
+      "area": "Durham / Triangle",
+      "desc": "Provides abundant books and ongoing literacy support to families and children, starting from birth.",
+      "link": "https://bookharvest.org/"
+    },
+    {
+      "name": "Read and Feed",
+      "area": "Wake County",
+      "desc": "An after-school literacy program that provides meals, tutoring, and books to children in low-income neighborhoods.",
+      "link": "https://readandfeed.org/"
+    }
+  ],
+  "onlineResources": [
+    {
+      "name": "Reading Rockets",
+      "desc": "Research-based strategies and resources for teaching kids to read.",
+      "link": "https://www.readingrockets.org/"
+    },
+    {
+      "name": "Project Gutenberg",
+      "desc": "A library of over 70,000 free eBooks.",
+      "link": "https://www.gutenberg.org/"
+    }
+  ]
+}
