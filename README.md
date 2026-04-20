@@ -17,4 +17,8 @@ This project addresses the systemic issue of low literacy in the United Statesâ€
 * **Simulated Database:** Implements a backend-to-frontend workflow by storing data in a `data.json` file rather than hard-coding content.
 * **Asynchronous Data Fetching:** Utilizes React Hooks (`useState`, `useEffect`) and the native `fetch` API to retrieve data from the local database on mount.
 * **State Management:** Features conditional rendering to handle different UI states, including **Loading** and **Error** messaging.
+<<<<<<< HEAD
 * **Dynamic UI Rendering:** Automatically maps through database arrays to generate the resource cards, allowing for easy scalability.
+=======
+* **Dynamic UI Rendering:** Automatically maps through database arrays to generate the resource cards, allowing for easy scalability.
+>>>>>>> 8837827597a2121665d8c60572967a69cb8f0b0a
